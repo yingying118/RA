@@ -1,19 +1,6 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/css/style.css"/>
-    <title>Title</title>
-</head>
-<body class="container" ng-app="resourceAllocationApp" ng-controller="projectsController as $ctrl">
-
-
 <div class="container">
+    <h2>Projects Detail</h2>
+
     <table class="table table-striped" ng-model="lstProjects">
         <thead>
         <tr>
@@ -47,10 +34,7 @@
     </tbody>
         </thead>
     </table>
-    <!-- Trigger the modal with a button -->
 
-
-    <!-- Form -->
 
     <form ng-model="newProject">
         <div class="form-group">
@@ -63,24 +47,27 @@
             <input type="text" class="form-control" ng-model="newProject.projectName" id="projectName"
                    placeholder="Enter Project Name" name="projectName"/>
         </div>
+
         <div class="form-group">
             <label for="projectDescription">Description:</label>
-            <textarea  rows="4" type="text" class="form-control" ng-model="newProject.description" id="projectDescription"
+            <input  type="text" class="form-control" ng-model="newProject.description" id="projectDescription"
                        placeholder="Enter Project Description" name="projectDescription"/>
-
         </div>
 
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
+
+        <div class="form-group">
+
                 <multi-select options="$ctrl.options"></multi-select>
-            </div>
-        </div>
 
-        <button type="submit" class="btn btn-default"
-                ng-click="saveProject()">Submit
-        </button>
-        <button type="reset" value="Reset" class="btn btn-default" >Clear</button>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-default"
+                    ng-click="saveProject()">Submit
+            </button>
+            <button type="reset" value="Reset" class="btn btn-default" >Clear</button>
+        </div>
     </form>
+
 
 
 
@@ -107,13 +94,3 @@
     </div>
 </div>
 </div>
-<script src="/app.js"></script>
-<script src="/overviewController.js"></script>
-<script src="/projectsController.js"></script>
-<script src="/resourcesController.js"></script>
-<script src="/multi-select.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-</body>
-</html>

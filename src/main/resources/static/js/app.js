@@ -9,17 +9,13 @@ app.config(function($locationProvider, $routeProvider) {
         requireBase: false
     });
     $routeProvider
-        .when('/', {
-            templateUrl:"overview",
-            controller:'overviewController'
-        })
         .when('/projects',{
-            templateUrl:"projects",
-            controller:'projectsController'
+            templateUrl:"partial/projects/projects.html",
+            controller:'projectsController as $ctrl'
         })
         .when(
             '/resources',{
-                templateUrl:"resources",
+                templateUrl:"partial/resources/resources.html",
                 controller:'resourcesController'
             }
         )

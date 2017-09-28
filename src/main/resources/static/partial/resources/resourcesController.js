@@ -2,6 +2,7 @@
  * Created by azhang on 19/09/2017.
  */
 app.controller('resourcesController', ['$scope', '$http', function($scope, $http){
+
     $scope.newResource;
     $scope.selectedResource;
     $scope.saveResource = function(){
@@ -30,7 +31,7 @@ app.controller('resourcesController', ['$scope', '$http', function($scope, $http
         console.log('get resources list');
 
         $http.get(url).then(function (response) {
-                $scope.lstResources = response.data;
+            $scope.lstResources = response.data;
             }, function (errResponse) {
                 console.error('Error while get all resources : ' + errResponse.toString());
             });
@@ -48,7 +49,7 @@ app.controller('resourcesController', ['$scope', '$http', function($scope, $http
 
         $http.delete(url).then(
             function(response){
-               $scope.getAllResources();
+                $scope.getAllResources();
             },
             function(errResponse){
                 console.error('Error while deleting : ' + errResponse.toString());
@@ -71,7 +72,6 @@ app.controller('resourcesController', ['$scope', '$http', function($scope, $http
                 console.error('Error while updating user');
             }
         )
-
 
     }
 

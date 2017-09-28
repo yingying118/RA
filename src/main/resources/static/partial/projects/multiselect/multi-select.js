@@ -21,5 +21,5 @@ angular
                 }
             }
         },
-        templateUrl: 'multiSelect'
+        templateUrl: './partial/projects/multiselect/multiSelect.html'
     });
