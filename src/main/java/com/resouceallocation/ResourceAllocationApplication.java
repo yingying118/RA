@@ -30,14 +30,14 @@ public class ResourceAllocationApplication implements CommandLineRunner {
 	@Override
 	public void run(String... strings) throws Exception {
 		Project payX = new Project(01, "PayX");
-		Project scd = new Project(02, "SCD");
+		//Project scd = new Project(02, "SCD");
 
 		Resource ariel = new Resource("Ariel",001);
 		Resource jack = new Resource("Jack",002);
 
 		Set<Project> projects = new HashSet<Project>();
 		projects.add(payX);
-		projects.add(scd);
+		//projects.add(scd);
 
 		jack.setProjects(projects);
 		ariel.setProjects(projects);
@@ -50,10 +50,10 @@ public class ResourceAllocationApplication implements CommandLineRunner {
 		resources.add(ariel);
 
 		payX.setResources(resources);
-		scd.setResources(resources);
+		//scd.setResources(resources);
 
 		projectRepository.save(payX);
-		projectRepository.save(scd);
+		//projectRepository.save(scd);
 
 
 		List<Resource> resourcesList=resourceRepository.findAll();
@@ -68,7 +68,12 @@ public class ResourceAllocationApplication implements CommandLineRunner {
 		System.out.println("===================project info:==================");
 		projectList.forEach(project->System.out.println(project.toString()));
 
-
-
+		Project scd = new Project(02, "SCD");
+		projects.add(scd);
+		scd.setResources(resources);
+		projectRepository.save(scd);
+		projectList = projectRepository.findAll();
+		System.out.println("===================project info:==================");
+		projectList.forEach(project->System.out.println(project.toString()));
 	}
 }

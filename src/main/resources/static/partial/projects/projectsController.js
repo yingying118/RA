@@ -5,16 +5,26 @@ app.controller('projectsController', ['$scope', '$http', function ($scope, $http
     var self = this;
     $scope.newProject;
 
+    $scope.select;
     $scope.getAllResources = function(){
         var url = "/api/getallresources";
         console.log('get resources list');
 
         $http.get(url).then(function (response) {
             self.options.items = response.data;
+            console.log(self.options.items)
         }, function (errResponse) {
             console.error('Error while get all resources : ' + errResponse.toString());
         });
     };
+
+    $scope.showSelect = function(){
+
+        console.log('check click function');
+        $scope.select = self.options.selectedItems;
+        console.log($scope.select);
+    };
+
     $scope.getAllResources();
     $scope.selectedProject;
     self.options = {
@@ -29,11 +39,14 @@ app.controller('projectsController', ['$scope', '$http', function ($scope, $http
     $scope.selectProject=function(project){
         console.log(project);
         $scope.selectedProject = angular.copy(project);
+
     };
     $scope.saveProject = function () {
+        $scope.newProject.resources = self.options.selectedItems;
+        console.log('resources: ' +  $scope.newProject.resources);
         var project = $scope.newProject;
+        console.log('project');
         var url = "/api/createproject";
-        console.log('Creating Project');
         var config = {
             headers: {
                 'Content-Type': 'application/json;'
@@ -41,11 +54,11 @@ app.controller('projectsController', ['$scope', '$http', function ($scope, $http
         };
         $http.post(url, project, config).then(
             function (response) {
-                console.log(project);
+                console.log('upload project: ' + JSON.stringify(project));
                 $scope.newProject={};
-
+                self.options.selectedItems=[];
+                $scope.getAllResources();
                 $scope.getAllProjects();
-
             },
             function (errResponse) {
                 console.error('Error while creating project: ' + errResponse.data.message);
@@ -59,6 +72,7 @@ app.controller('projectsController', ['$scope', '$http', function ($scope, $http
         console.log('get projects list');
         $http.get(url).then(function (response) {
                 $scope.lstProjects = response.data;
+                console.log('project list:' + JSON.stringify($scope.lstProjects));
             }, function (errResponse) {
                 console.error('Error while get all projects : ' + errResponse.data.message);
             }

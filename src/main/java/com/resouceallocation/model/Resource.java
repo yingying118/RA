@@ -69,9 +69,17 @@ public class Resource implements Serializable {
     public String toString(){
         String info = "";
         JSONObject jsonInfo = new JSONObject();
+
         try {
+            jsonInfo.put("id",this.id);
             jsonInfo.put("name",this.name);
 
+            info = jsonInfo.toString();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        /**
         JSONArray subArray = new JSONArray();
         this.projects.forEach(sub->{
             JSONObject subJson = new JSONObject();
@@ -87,8 +95,8 @@ public class Resource implements Serializable {
 
         } catch (JSONException e) {
             e.printStackTrace();
-        }
+        }**/
         return info;
-    }
 
+}
 }

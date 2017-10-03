@@ -27,9 +27,15 @@ public class ProjectServiceImp implements ProjectService{
 
     @Override
     public void saveProject(Project project) {
-        projectRepository.save(project);
-    }
 
+        Project tosave = new Project(project.getProjectId(),project.getProjectName(),project.getDescription());
+        for(Resource temp: project.getResources()){
+            Resource re = resourceRepository.findOne(temp.getId());
+            re.getProjects().add(tosave);
+            resourceRepository.save(re);
+        }
+        tosave.setResources(project.getResources());
+    }
     /*
     * Since the method is running with Transaction, No need to call hibernate update explicitly.
     * Just fetch the entity from db and update it with proper values within transaction.

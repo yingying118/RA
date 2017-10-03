@@ -28,15 +28,16 @@ app.controller('resourcesController', ['$scope', '$http', function($scope, $http
 
     $scope.getAllResources = function () {
         var url = "/api/getallresources";
-        console.log('get resources list');
 
         $http.get(url).then(function (response) {
             $scope.lstResources = response.data;
+            console.log('getAllResources:' + $scope.lstResources);
             }, function (errResponse) {
                 console.error('Error while get all resources : ' + errResponse.toString());
             });
     };
     $scope.getAllResources();
+
     $scope.selectResource=function(resource){
         console.log(resource);
         $scope.selectedResource = angular.copy(resource);
@@ -55,8 +56,6 @@ app.controller('resourcesController', ['$scope', '$http', function($scope, $http
                 console.error('Error while deleting : ' + errResponse.toString());
             }
         )
-
-
     };
     $scope.updateResource=function(resource){
         console.log("selected id:" +  $scope.selectedResource.id);
@@ -66,7 +65,6 @@ app.controller('resourcesController', ['$scope', '$http', function($scope, $http
         $http.put(url, resource).then(
             function(response){
                 $scope.getAllResources();
-
             },
             function(errResponse){
                 console.error('Error while updating user');
@@ -74,5 +72,4 @@ app.controller('resourcesController', ['$scope', '$http', function($scope, $http
         )
 
     }
-
 }]);

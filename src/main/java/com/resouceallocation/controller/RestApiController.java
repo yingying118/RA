@@ -30,10 +30,12 @@ public class RestApiController {
     ResourceService resourceService;
     @RequestMapping(value="/createproject", method = RequestMethod.POST)
     public Project createProject(@RequestBody Project project)  {
-        //throw new Exception("this is error testing");
+
         projectService.saveProject(project);
+
         return project;
     }
+
     @RequestMapping(value="/getallprojects", method = RequestMethod.GET)
     public List<Project> getAllProjects(){
         List<Project> lst = projectService.findAllProjects();

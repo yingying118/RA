@@ -8,9 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
-/**
- * Created by azhang on 18/09/2017.
- */
+
 @Entity
 public class Project implements Serializable {
     @Id
@@ -30,23 +28,25 @@ public class Project implements Serializable {
         this.description = description;
     }
     public Project (int id, String projectName, Set<Resource> resources){
-        this.projectName=projectName;
-        this.resources=resources;
+        this.projectName = projectName;
+        this.resources = resources;
         this.projectId = id;
     }
 
 
     @ManyToMany(mappedBy="projects", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Set<Resource> resources;
+
     public Set<Resource> getResources() {
         return resources;
     }
-
-
-
     public void setResources(Set<Resource> resources) {
         this.resources = resources;
     }
+
+
+
+
     public int getProjectId() {
         return projectId;
     }
@@ -83,10 +83,13 @@ public class Project implements Serializable {
         }
         JSONArray studentArray = new JSONArray();
         if(this.resources != null && resources.size() > 0){
-            this.resources.forEach(student->{
+            this.resources.forEach(resource->{
                 JSONObject subJson = new JSONObject();
                 try {
-                    subJson.put("name", student.getName());
+                    subJson.put("id", resource.getId());
+
+                    subJson.put("name", resource.getName());
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
