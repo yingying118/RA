@@ -4,29 +4,44 @@
 app.controller('projectsController', ['$scope', '$http', function ($scope, $http) {
     var self = this;
     $scope.newProject;
-
-    $scope.select;
+    $scope.selectedProject;
+    $scope.allResources;
     $scope.getAllResources = function(){
         var url = "/api/getallresources";
         console.log('get resources list');
-
         $http.get(url).then(function (response) {
-            self.options.items = response.data;
+            $scope.allResources = response.data;
+            self.options.items = angular.copy( $scope.allResources);
             console.log(self.options.items)
         }, function (errResponse) {
             console.error('Error while get all resources : ' + errResponse.toString());
         });
     };
 
-    $scope.showSelect = function(){
+    $scope.remainingResource = function(){
+        var url = "/api/getallresources";
+        console.log('get resources list');
 
-        console.log('check click function');
-        $scope.select = self.options.selectedItems;
-        console.log($scope.select);
+        $http.get(url).then(function (response) {
+            self.selectedOption.items = response.data;
+        }, function (errResponse) {
+            console.error('Error while get all resources : ' + errResponse.toString());
+        });
     };
 
+
     $scope.getAllResources();
-    $scope.selectedProject;
+
+    self.selectedOption = {
+        searchPlaceHolder: 'Typing Resources Name to filter.',
+        labelAll: 'All Resources',
+        labelSelected: 'Selected Resources',
+        labelShow:'name',
+        orderProperty: 'name',
+        items:  $scope.allResources,
+        selectedItems: []
+    };
+
     self.options = {
         searchPlaceHolder: 'Typing Resources Name to filter.',
         labelAll: 'All Resources',
@@ -37,10 +52,21 @@ app.controller('projectsController', ['$scope', '$http', function ($scope, $http
         selectedItems: []
     };
     $scope.selectProject=function(project){
-        console.log(project);
         $scope.selectedProject = angular.copy(project);
+        self.selectedOption.selectedItems=$scope.selectedProject.resources;
+
+
+
 
     };
+    function checkResource(selected){
+        $scope.allResources.forEach(function(element){
+            if(element.id === selected.id){
+                return selected;
+            }
+        })
+    }
+
     $scope.saveProject = function () {
         $scope.newProject.resources = self.options.selectedItems;
         console.log('resources: ' +  $scope.newProject.resources);

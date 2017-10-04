@@ -1,6 +1,3 @@
-/**
- * Created by azhang on 28/09/2017.
- */
 
 angular
     .module('multiselectcomp',[])
