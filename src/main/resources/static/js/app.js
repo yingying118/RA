@@ -10,12 +10,12 @@ app.config(function($locationProvider, $routeProvider) {
     });
     $routeProvider
         .when('/projects',{
-            templateUrl:"partial/projects/projects.html",
-            controller:'projectsController as $ctrl'
+            templateUrl:"./js/projects/projects.html",
+            controller:'projectsController as projectsCtrl'
         })
         .when(
             '/resources',{
-                templateUrl:"partial/resources/resources.html",
+                templateUrl:"./js/resources/resources.html",
                 controller:'resourcesController'
             }
         )
