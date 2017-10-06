@@ -1,7 +1,7 @@
 <div class="container">
     <h2>Projects Detail</h2>
 
-    <table class="table table-striped" ng-model="lstProjects">
+    <table class="table table-striped" ng-model="projectsCtrl.projects">
         <thead>
         <tr>
             <th>ID</th>
@@ -11,7 +11,7 @@
             <th>Action</th>
         </tr>
         <tbody>
-    <tr ng-repeat="project in lstProjects">
+    <tr ng-repeat="project in projectsCtrl.projects">
         <td>{{project.projectId}}</td>
         <td>{{project.projectName}}</td>
         <td>{{project.description}}</td>
@@ -22,11 +22,11 @@
         </td>
         <td>
             <a href="#">
-                    <span ng-click="selectProject(project)" class="glyphicon glyphicon-remove" data-toggle="modal"
+                    <span ng-click="projectsCtrl.selectProject(project)" class="glyphicon glyphicon-remove" data-toggle="modal"
                           data-target="#myDeleteModal"></span>
             </a>
             <a href="#">
-                    <span ng-click="selectProject(project)" data-toggle="modal" data-target="#myEditModal"
+                    <span ng-click="projectsCtrl.selectProject(project)" data-toggle="modal" data-target="#myEditModal"
                           class="glyphicon glyphicon-pencil"></span>
             </a>
         </td>
@@ -36,37 +36,38 @@
     </table>
 
 
-    <form ng-model="newProject">
+    <form ng-model="projectsCtrl.newProject">
         <div class="form-group">
             <label for="projectID">ID#:</label>
-            <input type="text" class="form-control" ng-model="newProject.projectId" id="projectID"
+            <input type="text" class="form-control" ng-model="projectsCtrl.newProject.projectId" id="projectID"
                    placeholder="Enter Project ID" name="projectID"/>
         </div>
         <div class="form-group">
             <label for="projectName">Name:</label>
-            <input type="text" class="form-control" ng-model="newProject.projectName" id="projectName"
+            <input type="text" class="form-control" ng-model="projectsCtrl.newProject.projectName" id="projectName"
                    placeholder="Enter Project Name" name="projectName"/>
         </div>
 
         <div class="form-group">
             <label for="projectDescription">Description:</label>
-            <input  type="text" class="form-control" ng-model="newProject.description" id="projectDescription"
+            <input  type="text" class="form-control" ng-model="projectsCtrl.newProject.description" id="projectDescription"
                        placeholder="Enter Project Description" name="projectDescription"/>
         </div>
 
         <div class="form-group">
-                <multi-select options="$ctrl.options"></multi-select>
+                <multi-select options="projectsCtrl.newProjectResourcesSelection"></multi-select>
         </div>
 
         <div class="form-group">
             <button type="submit" class="btn btn-default"
-                    ng-click="saveProject()">Submit
+                    ng-click="projectsCtrl.saveNewProject()">Submit
             </button>
-            <button type="reset" value="Reset" class="btn btn-default" >Clear</button>
+            <button type="reset" value="Reset" class="btn btn-default"
+                    ng-click="projectsCtrl.resetNewProject()">Clear</button>
         </div>
     </form>
 
-    <div class="modal fade" id="myEditModal" role="dialog" ng-model="selectedProject">
+    <div class="modal fade" id="myEditModal" role="dialog" ng-model="projectsCtrl.selectedProject">
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
@@ -81,17 +82,17 @@
                         <div class="form-group">
                             <label class="control-label col-sm-2">Name:</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" ng-model="selectedProject.projectName"/>
+                                <input type="text" class="form-control" ng-model="projectsCtrl.selectedProject.projectName"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-2">Description:</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" ng-model="selectedProject.description"/>
+                                <input type="text" class="form-control" ng-model="projectsCtrl.selectedProject.description"/>
                             </div>
                         </div>
 
-                            <multi-select  options="$ctrl.selectedOption"></multi-select>
+                            <multi-select  options="projectsCtrl.selectedProjectResourceSelection"></multi-select>
 
                     </form>
                 </div>
@@ -106,7 +107,7 @@
 
 
 
-<div class="modal fade" id="myDeleteModal" role="dialog" ng-model="selectedProject">
+<div class="modal fade" id="myDeleteModal" role="dialog" ng-model="projectsCtrl.selectedProject">
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
@@ -116,11 +117,11 @@
             </div>
             <div class="modal-body">
                 Do you want to delete the resource:<br/>
-                ID: {{selectedProject.projectId}}<br/>Name: {{selectedProject.projectName}}<br/>
+                ID: {{projectsCtrl.selectedProject.projectId}}<br/>Name: {{projectsCtrl.selectedProject.projectName}}<br/>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" ng-click="removeProject()" data-dismiss="modal">Yes
+                <button type="button" class="btn btn-primary" ng-click="projectsCtrl.deleteProject()" data-dismiss="modal">Yes
                 </button>
             </div>
         </div>
